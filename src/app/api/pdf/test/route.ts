@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
         path.join(process.cwd(), "app/api/pdf/test/rdkit/RDKit_minimal.wasm")
     ];
 
-    const readDir = fs.readdirSync(path.join(process.cwd()));
+    const readDir = fs.readdirSync(path.join(process.cwd(), "rdkit"));
 
     // const existsResponse = existsTest.map((exists) => {
     //     return {
