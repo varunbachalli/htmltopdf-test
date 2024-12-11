@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
-import initRDKitModule from "./RDKIT_minimal";
+import initRDKitModule from "./RDKit_minimal";
 export async function GET(request: NextRequest) {
     const existsTest = [
         path.join(process.cwd(), "rdkit/RDKit_minimal.wasm"),
