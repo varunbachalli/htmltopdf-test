@@ -7,11 +7,13 @@ export async function GET(request: NextRequest) {
         path.join(process.cwd(), "app/api/pdf/test/rdkit/RDKit_minimal.wasm")
     ];
 
-    const existsResponse = existsTest.map((exists) => {
-        return {
-            [exists]: fs.existsSync(exists)
-        };
-    });
+    const readDir = fs.readdirSync(path.join(process.cwd()));
 
-    return NextResponse.json({ message: existsResponse, request });
+    // const existsResponse = existsTest.map((exists) => {
+    //     return {
+    //         [exists]: fs.existsSync(exists)
+    //     };
+    // });
+
+    return NextResponse.json({ message: readDir.join(","), request });
 }
