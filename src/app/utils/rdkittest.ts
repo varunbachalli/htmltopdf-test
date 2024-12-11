@@ -1,11 +1,18 @@
 import path from "path";
 import initRDKitModule from "./rdkit/RDKit_minimal";
 
-export default async function getSVG() {
+async function dummyDelay(ms: number) {
+    await new Promise((resolve) => setTimeout(resolve, ms));
     const rdkit = await initNodeRDKit();
-    var smiles = "CC(=O)Oc1ccccc1C(=O)O";
-    var mol = rdkit.get_mol(smiles);
-    var svg = mol.get_svg();
+    let smiles = "CC(=O)Oc1ccccc1C(=O)O";
+    let mol = rdkit.get_mol(smiles);
+    let svg = mol.get_svg();
+    return svg;
+}
+
+export default async function getSVG() {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const svg = await dummyDelay(1000);
     return svg;
 }
 
