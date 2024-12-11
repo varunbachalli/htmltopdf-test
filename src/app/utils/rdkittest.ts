@@ -34,7 +34,10 @@ const initNodeRDKit = (() => {
         if (!rdkitLoadingPromise) {
             rdkitLoadingPromise = new Promise((resolve, reject) => {
                 initRDKitModule({
-                    locateFile: () => path.join(process.cwd(), "data/rdkit/RDKit_minimal.wasm")
+                    locateFile: () => {
+                        console.log(process.cwd());
+                        return path.join(process.cwd(), "data/rdkit/RDKit_minimal.wasm");
+                    }
                 })
                     .then((RDKit) => {
                         resolve(RDKit);
