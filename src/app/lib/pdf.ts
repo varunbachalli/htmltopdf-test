@@ -2,7 +2,7 @@ import chromium from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
 
 const getSvg = () => {
-  return `<?xml version='1.0' encoding='iso-8859-1'?>
+    return `<?xml version='1.0' encoding='iso-8859-1'?>
   <svg version='1.1' baseProfile='full'
                 xmlns='http://www.w3.org/2000/svg'
                         xmlns:rdkit='http://www.rdkit.org/xml'
@@ -132,17 +132,19 @@ const getSvg = () => {
 };
 
 async function getBrowser() {
-  return puppeteer.launch({
-    args: [...chromium.args, "--no-sandbox", "--incognito", "--hide-scrollbars", "--disable-web-security"],
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(`https://github.com/Sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar`),
-    headless: chromium.headless,
-    ignoreDefaultArgs: ["--disable-extensions"]
-  });
+    return puppeteer.launch({
+        args: [...chromium.args, "--no-sandbox", "--incognito", "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(
+            `https://github.com/Sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar`
+        ),
+        headless: chromium.headless,
+        ignoreDefaultArgs: ["--disable-extensions"]
+    });
 }
 const testHTML = () => {
-  const svg = getSvg();
-  return `<!DOCTYPE html>
+    const svg = getSvg();
+    return `<!DOCTYPE html>
           <html lang="en">
           <head>
               <meta charset="UTF-8">
@@ -181,20 +183,20 @@ const testHTML = () => {
 };
 
 export const getPdf = async () => {
-  // Start headless chrome instance
-  const browser = await getBrowser();
-  const page = await browser.newPage();
-  const html = testHTML();
-  await page.setContent(html, { waitUntil: "networkidle0" });
+    // Start headless chrome instance
+    const browser = await getBrowser();
+    const page = await browser.newPage();
+    const html = testHTML();
+    await page.setContent(html, { waitUntil: "networkidle0" });
 
-  // Tell Chrome to generate the PDF
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" }
-  });
+    // Tell Chrome to generate the PDF
+    const pdfBuffer = await page.pdf({
+        format: "A4",
+        printBackground: true,
+        margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" }
+    });
 
-  // Close chrome instance
-  await browser.close();
-  return pdfBuffer;
+    // Close chrome instance
+    await browser.close();
+    return pdfBuffer;
 };
